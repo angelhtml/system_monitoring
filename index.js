@@ -1,8 +1,10 @@
 
 
 var os 	= require('os-utils');
+const si = require('systeminformation');
 var express = require('express');
 var app = express();
+const {cpu} = require("./cpu")
 const port = 3000
 //const si = require('systeminformation');
 
@@ -11,15 +13,24 @@ const port = 3000
 app.get("/" ,async function(req,res){
 
   const freeMemory = os.freemem();
-  console.log(freeMemory/1024)
+  console.log(os.totalmem()/1024 - freeMemory/1024)
 
 
   os.cpuUsage(async function(v){
-    const cpu = 'CPU Usage (%): ' + v
     console.log( 'CPU Usage (%): ' + v );
   });
 
-  await res.send(`<h1>Memory : ${freeMemory/1024} GB</h1><br /><h1>${cpu}</h1>`)
+  //const usage = process.cpuUsage();
+  //console.log(cpu())
+
+  let cpu1 = si.currentLoad((i) => {
+    console.log( i["currentLoad"])
+  })
+  
+  
+
+
+  await res.send(`<h1>Memory : ${freeMemory/1024} GB</h1><br /><h1>...</h1>`)
 })
 
 
