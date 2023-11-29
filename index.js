@@ -1,10 +1,7 @@
-
-
 var os 	= require('os-utils');
 const si = require('systeminformation');
 var express = require('express');
 var app = express();
-const {cpu} = require("./cpu")
 const port = 3000
 //const si = require('systeminformation');
 
